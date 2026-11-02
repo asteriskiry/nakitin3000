@@ -112,3 +112,17 @@ db.sqlite3
 secret_key.txt
 local.py
 nakitin3000/settings.py
+
+# Deployment state and database backups must never be published.
+.env.*
+!.env.example
+static_root/
+static/admin/
+*.sql
+*.sql.*
+*.dump
+*.bak
+backups/
+.test-python/
+.test-state/
+.uv-cache/

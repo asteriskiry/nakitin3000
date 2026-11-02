@@ -1,0 +1,26 @@
+# Only application sources enter the build context, never live config/data.
+*
+!Dockerfile
+!requirements.txt
+!manage.py
+!nakit/
+!nakit/**
+!nakitin3000/
+!nakitin3000/**
+!templates/
+!templates/**
+!static/
+!static/**
+!deploy/
+!deploy/entrypoint.sh
+**/__pycache__
+**/*.pyc
+nakitin3000/settings.py
+**/local.py
+**/local_settings.py
+**/.env*
+**/*secret*
+**/*.sql
+**/*.sqlite3
+**/*.pem
+**/*.key
