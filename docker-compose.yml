@@ -1,13 +1,32 @@
-version: '2'
-
 services:
   nakitin:
     build: .
-    command: python manage.py makemigrations
-    command: python manage.py migrate
-    command: python manage.py runserver 0.0.0.0:888
-    container_name: nakitin
-    volumes:
-      - .:/nakitin
+    restart: unless-stopped
+    init: true
+    user: "${NAKITIN_UID:-10001}:${NAKITIN_GID:-10001}"
     ports:
-      - "888:888"
+      - "${NAKITIN_BIND_IP:-127.0.0.1}:${NAKITIN_PORT:-8001}:8000"
+    volumes:
+      - type: bind
+        source: ${NAKITIN_SETTINGS_FILE:?Set the absolute path to settings.py}
+        target: /nakitin/nakitin3000/settings.py
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${NAKITIN_SECRET_FILE:?Set the absolute path to secret_key.txt}
+        target: /nakitin/secret_key.txt
+        read_only: true
+        bind:
+          create_host_path: false
+    tmpfs:
+      - /nakitin/static_root:uid=${NAKITIN_UID:-10001},gid=${NAKITIN_GID:-10001},mode=0755
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

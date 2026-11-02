@@ -4,19 +4,11 @@ Nakittautumisjärjestelmä tapahtumajärjestejille. Live: <https://nakit.asteris
 Author: [Janne Iltanen](https://github.com/jatail)
 
 ## Ohjeet kehitykseen
-Mukana tulevat tarvittavat docker-tiedostot.
-```
-git clone https://github.com/jatail/nakitin3000.git
-cd nakitin3000
-docker-compose up
-```
-Tämän jälkeen nakittimen pitäisi pyöriä osoitteessa <https://localhost:888>.
+Tuotannon Docker-siirron ohjeet: [DEPLOYMENT.md](DEPLOYMENT.md).
 
-Uuden pääkäyttäjän pääset lisäämään näin:
+The old Compose development setup has been replaced with a Gunicorn container.
+Read [DEPLOYMENT.md](DEPLOYMENT.md) for required private configuration, testing,
+database backup requirements and rollback. Do not start it against production
+until the backup has been restored and staging has been verified.
 
-Ensin ota "CONTAINER ID" talteen komennolla `docker ps`. Vaihtoehtoisesti voit käyttää kontin nimeä. Tämän jälkeen:
-```
-docker exec -it CONTAINER_ID /bin/sh
-python manage.py createsuperuser
-```
-Korvaa CONTAINER_ID tietysti kontin id:llä jonka sait `docker ps`-komennolla. Adminhommia pääset tekemään osoitteessa <https://localhost:888/admin>.
+Organization repository: https://github.com/asteriskiry/nakitin3000.
